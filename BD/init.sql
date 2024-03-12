@@ -1,0 +1,7 @@
+CREATE TABLE chatJS
+(
+    idMessage INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    contenu VARCHAR(255) NOT NULL,
+    userPseudo VARCHAR(255) NOT NULL,
+    horaire INT(11) NOT NULL
+);
