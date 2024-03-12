@@ -9,20 +9,11 @@ $conn = Connexion::getInstance();
     // Requête SQL
     $sql = "SELECT * FROM chatJS";
 
-
-    // Requête pour récupérer les messages de la base de données
-    $sql = "SELECT * FROM chatJS ORDER BY horaire DESC LIMIT 10";
+    // Exécution de la requête
     $result = $conn->query($sql);
 
-    // Vérification s'il y a des résultats
-    if ($result->num_rows > 0) {
-        // Construction du HTML des messages
-        while($row = $result->fetch_assoc()) {
-            $id = $row["id"];
-            $message = htmlspecialchars($row["contenu"]);
-            $pseudo = htmlspecialchars($row["userPseudo"]);
-            $date = date("H:i:s", $row["horaire"]);
-
+    // Récupération des résultats
+    $messages = $result->fetchAll(PDO::FETCH_ASSOC);
 
     // Affichage des résultats
     foreach ($messages as $message) {
@@ -31,6 +22,4 @@ $conn = Connexion::getInstance();
         $date = $message['horaire'];
         echo "<p><strong>$pseudo</strong> : $contenu <em>($date)</em></p>";
     }
-}
-}
 ?>
