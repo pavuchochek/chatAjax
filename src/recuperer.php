@@ -1,6 +1,7 @@
 <?php
+require_once "Connexion.php";
     // Création de la connexion
-    $conn = new mysqli();
+    $conn = Connexion::getInstance();
 
     // Vérification de la connexion
     if ($conn->connect_error) {
