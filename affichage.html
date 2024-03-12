@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="pseudo">
+            <label>Pseudo</label>
+            <input type="text" name="pseudo" id="champ_pseudo">
+        </div>
+        <div id="chat">
+            <div id="message">
+                <!-- Contenu de la div "message" mis à jour par le script JS -->
+            </div>
+        </div>
+        <div id="saisie">
+            <form action="enregistrer.php" method="post">
+                <input type="text" name="message" id="champ_message">
+                <input type="hidden" name="pseudo" id="champ_pseudo_form">
+                <input type="submit" value="Envoyer">
+            </form>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Utilisation de setInterval pour mettre à jour le contenu de la div "message" toutes les 2 secondes
+        setInterval(function() {
+            $('#message').load('recuperer.php');
+        }, 2000); // Rafraîchissement toutes les 2 secondes
+    </script>
+</html>
