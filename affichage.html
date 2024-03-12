@@ -12,12 +12,12 @@
         </div>
         <div id="chat">
             <div id="message">
-                <!-- Contenu de la div "message" mis à jour par le script JS -->
+                
             </div>
         </div>
         <div id="saisie">
             <form action="enregistrer.php" method="post">
-                <input type="text" name="message" id="champ_message">
+                <input type="text" name="message" id="champ_message" autocomplete="off">
                 <input type="hidden" name="pseudo" id="champ_pseudo_form">
                 <input type="submit" value="Envoyer">
             </form>
@@ -29,5 +29,18 @@
         setInterval(function() {
             $('#message').load('recuperer.php');
         }, 2000); // Rafraîchissement toutes les 2 secondes
+        
+        $(document).ready(function() {
+            $('#champ_message').keyup(function(event) {
+                if (event.keyCode === 13) {
+                    $('form').submit();
+                }
+            });
+            
+            $('#champ_pseudo').keyup(function() {
+                var pseudoValue = $(this).val();
+                $('#champ_pseudo_form').val(pseudoValue);
+            });
+        });
     </script>
 </html>
