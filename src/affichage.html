@@ -16,8 +16,8 @@
             </div>
         </div>
         <div id="saisie">
-            <form action="enregistrer.php" method="post">
-                <input type="text" name="message" id="champ_message" autocomplete="off">
+            <form method="post">
+                <input type="text" name="message" id="champ_message" autocomplete="off" autofocus>
                 <input type="hidden" name="pseudo" id="champ_pseudo_form">
                 <input type="submit" value="Envoyer">
             </form>
@@ -26,8 +26,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         // Utilisation de setInterval pour mettre à jour le contenu de la div "message" toutes les 2 secondes
+        
+        var valeurRecuperee; // Déclaration de la variable pour stocker la valeur
+
+        // Charger le fichier PHP et récupérer sa valeur
+        $.get('recuperer.php', function(data) {
+            valeurRecuperee = data;
+        });
+
+        $('#message').load('recuperer.php');
+        
         setInterval(function() {
-            $('#message').load('recuperer.php');
+            $('#message').load('recuperer.php?debut='.valeurRecuperee);
         }, 2000); // Rafraîchissement toutes les 2 secondes
         
         $(document).ready(function() {
@@ -42,5 +52,20 @@
                 $('#champ_pseudo_form').val(pseudoValue);
             });
         });
+
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const message = document.querySelector('#champ_message').value;
+            const pseudo = document.querySelector('#champ_pseudo_form').value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'enregistrer.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('message=' + message + '&pseudo=' + pseudo);
+            document.querySelector('#champ_message').value = '';
+            $('#message').load('recuperer.php');
+        });
+            
     </script>
 </html>

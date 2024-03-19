@@ -1,12 +1,14 @@
 <?php
 require_once "Connexion.php";
-    // Création de la connexion
-    $conn = Connexion::getInstance();
+// Création de la connexion
+$conn = Connexion::getInstance();
 
-    // Vérification de la connexion
-    if ($conn->connect_error) {
-        die("Erreur de connexion à la base de données : " . $conn->connect_error);
-    }
+    $debut = $_GET['debut'];
+
+
+    // Requête SQL
+    $sql = "SELECT * FROM chatJS";
+
 
     // Requête pour récupérer les messages de la base de données
     $sql = "SELECT * FROM chatJS ORDER BY horaire DESC LIMIT 10";
@@ -21,16 +23,14 @@ require_once "Connexion.php";
             $pseudo = htmlspecialchars($row["userPseudo"]);
             $date = date("H:i:s", $row["horaire"]);
 
-            // Formatage du message en HTML
-            echo "<div class='message'>
-                    <span class='message'$id>$message</span>
-                    <span class='info_message'>$pseudo | $date</span>
-                </div>";
-        }
-    } else {
-        echo "Aucun message trouvé.";
-    }
 
-    // Fermeture de la connexion
-    $conn->close();
+    // Affichage des résultats
+    foreach ($messages as $message) {
+        $contenu = $message['contenu'];
+        $pseudo = $message['userPseudo'];
+        $date = $message['horaire'];
+        echo "<p><strong>$pseudo</strong> : $contenu <em>($date)</em></p>";
+    }
+}
+}
 ?>
