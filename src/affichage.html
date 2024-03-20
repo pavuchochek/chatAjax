@@ -8,7 +8,7 @@
     <body>
         <div id="pseudo">
             <label>Pseudo :</label>
-            <input type="text" name="pseudo" id="champ_pseudo">
+            <input type="text" name="pseudo" id="champ_pseudo" placeholder="Entrez votre pseudo">
         </div>
         <div id="chat">
             <div id="message">
@@ -17,7 +17,7 @@
         </div>
         <div id="saisie">
             <form method="post">
-                <input type="text" name="message" id="champ_message" autocomplete="off" autofocus>
+                <input type="text" name="message" id="champ_message" autocomplete="off" autofocus placeholder="Entrez votre message">
                 <input type="hidden" name="pseudo" id="champ_pseudo_form">
                 <input type="submit" value="Envoyer">
             </form>
@@ -26,11 +26,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
 
-        $('#message').load('recuperer.php');
-        
+        $.get("recuperer.php?debut=True", function(result) {
+            var liste_id = result;
+            console.log(liste_id);
+        });
+        liste_id = [0];
         setInterval(function() {
-            $('#message').load('recuperer.php');
+            $('#message').load('recuperer.php?liste_id=' + liste_id);
         }, 2000); // Rafraîchissement toutes les 2 secondes
+        
         
         $(document).ready(function() {
             $('#champ_message').keyup(function(event) {
