@@ -25,24 +25,21 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-
-        $.get("recuperer.php?debut=True", function(result) {
-            var liste_id = result;
-            console.log(liste_id);
+        var id_debut = 0;
+        $.ajax({
+            url: "recuperer.php?debut=True",
+            async: false,
+            success: function(result) {
+                id_debut = result;
+            }
         });
-        liste_id = [0];
+        $('#message').load('recuperer.php?liste_id=' + id_debut);
         setInterval(function() {
-            $('#message').load('recuperer.php?liste_id=' + liste_id);
+            $('#message').load('recuperer.php?liste_id=' + id_debut);
         }, 2000); // Rafraîchissement toutes les 2 secondes
         
         
         $(document).ready(function() {
-            $('#champ_message').keyup(function(event) {
-                if (event.keyCode === 13) {
-                    $('form').submit();
-                }
-            });
-            
             $('#champ_pseudo').keyup(function() {
                 var pseudoValue = $(this).val();
                 $('#champ_pseudo_form').val(pseudoValue);
@@ -50,7 +47,7 @@
         });
 
         const form = document.querySelector('form');
-
+        var chat = document.getElementById("chat");
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             const message = document.querySelector('#champ_message').value;
@@ -60,7 +57,10 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send('message=' + message + '&pseudo=' + pseudo);
             document.querySelector('#champ_message').value = '';
-            $('#message').load('recuperer.php');
+            $('#message').load('recuperer.php?liste_id=' + id_debut);
+            setTimeout(function() {
+                chat.scrollTop = chat.scrollHeight;
+            }, 100);
         });
             
     </script>

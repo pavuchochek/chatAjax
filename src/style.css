@@ -69,3 +69,8 @@ input[type="submit"]:hover {
     font-size: 0.8em;
     color: #666;
 }
+
+#chat {
+    height: 400px; /* Hauteur fixe de la div */
+    overflow-y: auto; /* Ajout de la barre de défilement verticale si nécessaire */
+ }

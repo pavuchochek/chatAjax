@@ -4,7 +4,7 @@ if (isset($_GET['debut'])) {
     recuperationid();
 } else {
     $liste_id = $_GET['liste_id'];
-    recuperationdonnee($liste_id[0]);
+    recuperationdonnee($liste_id);
 }
 
 function recuperationid() {
@@ -12,7 +12,7 @@ function recuperationid() {
     $conn = Connexion::getInstance();
 
     // Requête SQL
-    $sql = "SELECT * FROM chatJS ORDER BY horaire DESC";
+    $sql = "SELECT * FROM chatJS ORDER BY horaire DESC LIMIT 10";
     // Exécution de la requête
     $result = $conn->query($sql);
 
@@ -29,8 +29,9 @@ function recuperationid() {
         //echo "<p><strong>$pseudo</strong> : $contenu <em>($date)</em></p><hr>";
     }
     foreach ($liste_id as $id) {
-        echo $id . " ";
+        $id_debut = $id;
     }
+    echo $id_debut;
 }
 
 function recuperationdonnee(int $id) {
@@ -38,7 +39,7 @@ function recuperationdonnee(int $id) {
     $conn = Connexion::getInstance();
 
     // Requête SQL
-    $sql = "SELECT * FROM chatJS WHERE idMessage >= $id ORDER BY horaire DESC";
+    $sql = "SELECT * FROM chatJS WHERE idMessage >= $id ORDER BY horaire ASC";
     // Exécution de la requête
     $result = $conn->query($sql);
 
