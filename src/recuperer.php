@@ -12,23 +12,19 @@ function recuperationid() {
     $conn = Connexion::getInstance();
 
     // Requête SQL
-    $sql = "SELECT * FROM chatJS ORDER BY horaire DESC LIMIT 10";
+    $sql = "SELECT * FROM chatJS ORDER BY idMessage DESC LIMIT 10";
     // Exécution de la requête
     $result = $conn->query($sql);
 
     // Récupération des résultats
     $messages = $result->fetchAll(PDO::FETCH_ASSOC);
-    $liste_id = [];
+    $id_debut = 0;
     // Affichage des résultats
     foreach ($messages as $message) {
         $contenu = $message['contenu'];
         $pseudo = $message['userPseudo'];
         $date = $message['horaire'];
         $id = $message['idMessage'];
-        $liste_id[] = $id;
-        //echo "<p><strong>$pseudo</strong> : $contenu <em>($date)</em></p><hr>";
-    }
-    foreach ($liste_id as $id) {
         $id_debut = $id;
     }
     echo $id_debut;
