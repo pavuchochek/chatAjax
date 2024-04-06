@@ -1,9 +1,1 @@
-l'URL de votre application AINSI QUE toute autre information
-qui pourrait être nécessaire à l’utilisation de celui-ci
-(par exemple, des informations d’authentification).
-
-Vous devez déposer une archive contenant l'intégralité de votre
-code source au plus tard le dimache 7 avril à 23h55,
-à l'aide de l'espace de devoir ci-dessous.
-Le nom de ce fichier doit comprendre les 2 noms constituant votre binôme,
-ainsi que la lettre du groupe du binôme ; un nom de fichier valide est par exemple “Dupont_Durand_A.zip".
+url : https://chat.amerpuk.gamingdy.fr/affichage.html
